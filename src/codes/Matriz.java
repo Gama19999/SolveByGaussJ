@@ -30,6 +30,10 @@ public class Matriz {
         this.id = m.id;
     }
 
+    /**
+     * Establece el ID del objeto Matriz
+     * @param id String que identifica el objeto Matriz
+     */
     public void setId(String id) { this.id = id; }
 
     public Matriz possible() {
