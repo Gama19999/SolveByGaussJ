@@ -85,6 +85,10 @@ public class Matriz {
         }
     }
 
+    /**
+     * Multiplica la fila del parametro por el inverso del principal la diagonal de esa fila
+     * @param row fila que será modificada
+     */
     public void invertirA1(int row) {
         float newVal, inverso;
 
@@ -97,6 +101,14 @@ public class Matriz {
         } catch(Exception e) {
             System.out.println("\nError " + e.getMessage());
         }
+    }
+
+    /**
+     * Inicia el proceso del método de GaussJordan
+     * @param m objeto Matriz en el que se asignará el resultado
+     */
+    public void startGJ(Matriz m) {
+
     }
 
 
