@@ -31,6 +31,16 @@ public class Matriz {
     }
 
     /**
+     * Crea un nuevo objeto Matriz vacío
+     */
+    Matriz() {
+        this.MAT = null;
+        this.FIL = 0;
+        this.COL = 0;
+        this.id = null;
+    }
+
+    /**
      * Establece el ID del objeto Matriz
      * @param id String que identifica el objeto Matriz
      */
@@ -46,7 +56,7 @@ public class Matriz {
         System.out.print("Número de ecuaciones: "); ecus = sknr.nextInt();
 
         if(vars == ecus) {
-            return ecuacionInn(ecus, vars);
+            return this.ecuacionInn(ecus, vars);
         } else {
             System.out.println("\nNúmero de variables y ecuaciones distinto. ERROR!");
             return null;
@@ -102,7 +112,7 @@ public class Matriz {
                 this.MAT[row][c] = newVal;
             }
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("x");
         }
     }
 
@@ -111,30 +121,97 @@ public class Matriz {
      * <p>Método que se deberá llamar desde una copia del objeto original Matriz</p>
      */
     public void startGJ() {
+        int cont, col = 0, pos = 0;
         this.movEcus();
 
-        if(this.MAT[0][0] != 1) {
-            this.invertirA1(0);
+        if(this.MAT[pos][pos] != 1) {
+            this.invertirA1(pos);
+            pos++;
         }
 
-        for(int f = 0; f < this.FIL; ++f) {
-            for(int c = 0; c < this.COL; ++c) {
+        for(int f = 1; f < this.FIL; ++f) {
+            this.MAT[f] = this.sumaAlgeb(f, this.contrario(f, col));
+        }
+
+        if(this.MAT[pos][pos] != 1) {
+            this.invertirA1(pos);
+            this.MAT[pos] = this.sumaAlgeb(pos+1, this.contrario(pos+1, pos));
+            pos++;
+        }
+
+        if(this.MAT[pos][pos] != 1) {
+            this.invertirA1(pos);
+        } // Se supone que aquí termina Gauss; Comienza GJ
+
+
+        /*
+        while(!this.esMatTriInf()) {
+            cont = 0;
+            for(int f = 1; f < this.FIL; ++f) {
 
             }
-        }
+        }*/
 
     }
 
 
 
-    private float[] sumaAlgeb(int f, float val) {
+    private float[] contrario(int f, int c) {
+        float[] rowMult = new float[this.MAT[f].length];
+
+        for(int p = 0; p < this.COL; ++p) {
+            rowMult[p] = this.MAT[f][p] * (this.MAT[f][c] * -1);
+        }
+
+        return rowMult;
+    }
+
+    private float[] sumaAlgeb(int f, float[] val) {
         float[] rowTemp = new float[this.MAT[f].length];
 
         for(int p = 0; p < this.COL; ++p) {
-            rowTemp[p] = this.MAT[f][p] + val;
+            rowTemp[p] = this.MAT[f][p] + val[p];
         }
 
         return rowTemp;
+    }
+
+
+
+    /**Retorna TRUE si es una Matriz Triangular Superior; contrario FALSE --> SOLO MATRIZ CUADRADA*/
+    private boolean esMatTriSup() {
+        boolean flag = false;
+
+        for(int f = 0; f < this.FIL; ++f) {
+            for(int c = 0; c < (this.COL-1); ++c) {
+                if(c < f) {
+                    if (this.MAT[f][c] == 0) flag = true;
+                    else {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return flag;
+    }
+
+    /**Retorna TRUE si es una Matriz Triangular Inferior; contrario FALSE --> SOLO MATRIZ CUADRADA*/
+    private boolean esMatTriInf() {
+        boolean flag = false;
+
+        for(int f = 0; f < this.FIL; ++f) {
+            for(int c = 0; c < this.COL; ++c) {
+                if(c > f) {
+                    if (this.MAT[f][c] == 0) flag = true;
+                    else {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return flag;
     }
 
 
