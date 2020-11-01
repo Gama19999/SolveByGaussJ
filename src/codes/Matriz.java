@@ -36,6 +36,8 @@ public class Matriz {
      */
     public void setId(String id) { this.id = id; }
 
+
+
     public Matriz possible() {
         Scanner sknr = new Scanner(System.in);
         int vars, ecus;
@@ -71,7 +73,8 @@ public class Matriz {
     }
 
 
-    public void movEcus() {
+
+    private void movEcus() {
         float[] temp;
 
         for(int f = 0; f < (this.FIL-1); ++f) {
@@ -89,7 +92,7 @@ public class Matriz {
      * Multiplica la fila del parametro por el inverso del principal la diagonal de esa fila
      * @param row fila que será modificada
      */
-    public void invertirA1(int row) {
+    private void invertirA1(int row) {
         float newVal, inverso;
 
         try {
@@ -99,17 +102,41 @@ public class Matriz {
                 this.MAT[row][c] = newVal;
             }
         } catch(Exception e) {
-            System.out.println("\nError " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
     /**
      * Inicia el proceso del método de GaussJordan
-     * @param m objeto Matriz en el que se asignará el resultado
+     * <p>Método que se deberá llamar desde una copia del objeto original Matriz</p>
      */
-    public void startGJ(Matriz m) {
+    public void startGJ() {
+        this.movEcus();
+
+        if(this.MAT[0][0] != 1) {
+            this.invertirA1(0);
+        }
+
+        for(int f = 0; f < this.FIL; ++f) {
+            for(int c = 0; c < this.COL; ++c) {
+
+            }
+        }
 
     }
+
+
+
+    private float[] sumaAlgeb(int f, float val) {
+        float[] rowTemp = new float[this.MAT[f].length];
+
+        for(int p = 0; p < this.COL; ++p) {
+            rowTemp[p] = this.MAT[f][p] + val;
+        }
+
+        return rowTemp;
+    }
+
 
 
     public Matriz copyThisMat() {
