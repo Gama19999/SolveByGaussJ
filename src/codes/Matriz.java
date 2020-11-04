@@ -224,5 +224,24 @@ public class Matriz {
         }
     }
 
+    public static void matr(double[] res) {
+        Matriz x = new Matriz(res.length, res.length+1);
+        System.out.println("\n\tMatriz Escalonada Reducida");
+
+        for(int f = 0; f < x.MAT.length; ++f) {
+            for (int c = 0; c < x.MAT[f].length; ++c) {
+                if (f == c) x.MAT[f][c] = 1.0f;
+                if (c == x.MAT[f].length-1) x.MAT[f][c] = (float) res[f];
+            }
+        }
+
+        for(int f = 0; f < x.MAT.length; ++f) {
+            for(int c = 0; c < x.MAT[f].length; ++c) {
+                System.out.printf("%7.1f", x.MAT[f][c]);
+            }
+            System.out.println("\n");
+        }
+    }
+
     public static void $() { System.out.println("Autor: Asis Gamaliel Rios Serrano"); }
 }
