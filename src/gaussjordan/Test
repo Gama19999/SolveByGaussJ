@@ -1,0 +1,14 @@
+
+        fils:
+        for (int v = this.numEcus - 2; v >= 0; --v) {
+
+            for (int w = this.numEcus - 1; w > v; --w) {
+
+                for (int x = 0; x < this.numEcus; ++x) {
+                    this.mat[v][x] = this.mat[v][x] + ((this.mat[v][w] * -1) * this.mat[v + 1][x]);
+                }
+
+                if (v != 0) continue fils;
+            }
+
+        }

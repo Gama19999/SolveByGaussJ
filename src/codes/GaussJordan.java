@@ -10,25 +10,25 @@ public class GaussJordan {
 
     public static void main(String[] args) {
         // variables
-        int i, j, s, k, h, n;
-        double d;
-        double[][] m;
-        double[] r;
-        double[] x;
+        int i, j, s, k, h, n; //i,j Fors //k,h # var ecu //n # ecus //s 3er For
+        double d; //Valor para dividir
+        double[][] m; //Matriz
+        double[] r; //Soluciones
+        double[] x; //Valor incognitas
 
-        n = Integer.parseInt(JOptionPane.showInputDialog("Introduce el numero de incognitas"));
+        n = Integer.parseInt(JOptionPane.showInputDialog("Número de ecuaciones"));
         m = new double[n][n];
         r = new double[n];
         x = new double[n];
 
         for (i = 0; i <= n-1; i++) {
             k = i + 1;
-            r[i] = Double.parseDouble(JOptionPane.showInputDialog("Introduzca la solucion " + k));
+            r[i] = Double.parseDouble(JOptionPane.showInputDialog("Solución ecuación " + k));
             x[i] = 0;
 
             for (j = 0; j <= n-1; j++) {
                 h = j + 1;
-                m[i][j] = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el elemento " + k + "," + h + " de la matriz de coeficientes"));
+                m[i][j] = Double.parseDouble(JOptionPane.showInputDialog("Coeficiente con signo " + k + ", " + h));
             }
         }
 
@@ -70,7 +70,7 @@ public class GaussJordan {
         for (i = 0; i < n; i++) {
             k = i + 1;
 
-            JOptionPane.showMessageDialog(null, "El valor de la incognita x" + k + " es " + x[i]);
+            JOptionPane.showMessageDialog(null, "El valor de x" + k + " es " + x[i]);
         }
 
     }

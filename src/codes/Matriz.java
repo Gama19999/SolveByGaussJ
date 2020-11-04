@@ -84,15 +84,15 @@ public class Matriz {
 
 
 
-    private void movEcus() {
-        float[] temp;
+    public static void movEcus(double[][] m) {
+        double[] temp;
 
-        for(int f = 0; f < (this.FIL-1); ++f) {
-            for(int c = 0; c < (this.COL-1); ++c) {
-                if (this.MAT[f][c] == 0.0d) {
-                    temp = this.MAT[f];
-                    this.MAT[f] = this.MAT[f + 1];
-                    this.MAT[f + 1] = temp;
+        for(int f = 0; f < (m.length-1); ++f) {
+            for(int c = 0; c < (m[f].length-1); ++c) {
+                if (m[f][c] == 0.0d) {
+                    temp = m[f];
+                    m[f] = m[f + 1];
+                    m[f + 1] = temp;
                 }
             }
         }
@@ -122,7 +122,7 @@ public class Matriz {
      */
     public void startGJ() {
         int cont, col = 0, pos = 0;
-        this.movEcus();
+        movEcus(new double[0][0]);
 
         if(this.MAT[pos][pos] != 1) {
             this.invertirA1(pos);
@@ -197,21 +197,15 @@ public class Matriz {
     }
 
     /**Retorna TRUE si es una Matriz Triangular Inferior; contrario FALSE --> SOLO MATRIZ CUADRADA*/
-    private boolean esMatTriInf() {
-        boolean flag = false;
-
-        for(int f = 0; f < this.FIL; ++f) {
-            for(int c = 0; c < this.COL; ++c) {
+    public static void esMatTriInf(double[][] m, double[] r) {
+        for(int f = 0; f < m.length; ++f) {
+            for(int c = 0; c < m[f].length-1; ++c) {
                 if(c > f) {
-                    if (this.MAT[f][c] == 0) flag = true;
-                    else {
-                        flag = false;
-                        break;
-                    }
+                    m[f][c] = 0;
                 }
             }
+            m[f][m[f].length-1] = r[f];
         }
-        return flag;
     }
 
 
