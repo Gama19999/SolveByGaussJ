@@ -15,6 +15,8 @@ public class GaussJ {
         ResDeA.startGJ();
         ResDeA.setId("Sistema resuelto");
         ResDeA.impMat();
+        
+        //Resulta que si lo puedo editar desde aquí
 
     }
 
